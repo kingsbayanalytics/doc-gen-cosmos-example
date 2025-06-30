@@ -26,10 +26,10 @@ The system follows this flow:
 
 ```bash
 # Convert CSV to JSONL
-python csv-promptflow-test/csv_to_jsonl.py "Workout Entries SP.csv" workout_entries_cosmos.jsonl
+python workout-data-promptflow/csv_to_jsonl.py "Workout Entries SP.csv" workout_entries_cosmos.jsonl
 
 # Upload data to Cosmos DB
-cd csv-promptflow-test
+cd workout-data-promptflow
 python load_csv_to_cosmos.py
 
 # Run Prompt Flow locally
@@ -38,6 +38,9 @@ pf run --flow . --inputs query="How many sets did I do last week?"
 # Test individual components
 python query_interpreter.py
 python cosmos_query_runner.py
+
+# Test framework robustness
+python test_framework_robustness.py
 ```
 
 ## Data Schema
@@ -229,11 +232,43 @@ The PromptFlow Document Generation integration is now **fully operational**:
 4. **Incremental Progress**: Each step independently testable
 5. **Fallback Capability**: Template generation can fall back to Azure OpenAI if needed
 
+## 📋 Repository Structure (Updated)
+
+After repository optimization, the structure is now:
+
+```
+promptflow-sql/
+├── docs/                                          # 📁 All documentation
+│   ├── DOCUMENT_GENERATION_PLAN.md
+│   ├── DOCUMENT_GENERATION_SECTION_ANALYSIS.md
+│   ├── PROMPTFLOW_DOCUMENT_GENERATION_INTEGRATION.md
+│   ├── PROMPTFLOW_INTEGRATION_FINAL_SUMMARY.md
+│   ├── PROMPTFLOW_INTEGRATION_SUCCESS_SUMMARY.md
+│   └── REPOSITORY_OPTIMIZATION.md
+├── workout-data-promptflow/                       # 🔄 Renamed from csv-promptflow-test
+│   ├── .env.example                              # Environment template
+│   ├── flow.dag.yaml                             # PromptFlow definition
+│   ├── query_interpreter.py                      # SQL query generation
+│   ├── cosmos_query_runner.py                    # Cosmos DB integration
+│   ├── search_query_runner.py                    # Azure AI Search
+│   ├── llm_enhancer.py                          # Result enhancement
+│   ├── test_framework_robustness.py             # Comprehensive tests
+│   └── ... (other PromptFlow files)
+├── document-generation-solution-accelerator/     # 📄 Document generation system
+│   ├── src/backend/                              # Backend integration
+│   ├── src/frontend/                             # React frontend
+│   ├── src/.env.example                          # Environment template
+│   └── ... (Microsoft solution accelerator)
+├── .gitignore                                     # 🔒 Comprehensive exclusions
+├── README.md                                      # 📖 Complete implementation guide
+└── CLAUDE.md                                      # 📋 Project instructions (this file)
+```
+
 ## 📋 Critical Development Rule: PromptFlow Integration Documentation
 
 **MANDATORY**: When working on PromptFlow Document Generation integration, ALWAYS:
 
-1. **Reference**: Check `PROMPTFLOW_DOCUMENT_GENERATION_INTEGRATION.md` for current status
+1. **Reference**: Check `docs/PROMPTFLOW_DOCUMENT_GENERATION_INTEGRATION.md` for current status
 2. **Update**: Modify the integration document after any changes to:
    - Backend integration code (`src/app.py`)
    - PromptFlow configuration 
@@ -245,9 +280,10 @@ The PromptFlow Document Generation integration is now **fully operational**:
 5. **Preserve Knowledge**: Ensure future developers can understand the integration without context
 
 **Key Files to Maintain**:
-- `PROMPTFLOW_DOCUMENT_GENERATION_INTEGRATION.md` - Primary integration documentation
+- `docs/PROMPTFLOW_DOCUMENT_GENERATION_INTEGRATION.md` - Primary integration documentation
+- `README.md` - Complete implementation guide and developer reference
 - `CLAUDE.md` - This file (high-level project guidance)
-- `DOCUMENT_GENERATION_PLAN.md` - Original planning document
+- `docs/DOCUMENT_GENERATION_PLAN.md` - Original planning document
 
 **Before Making Changes**: Read the integration document to understand current state
 **After Making Changes**: Update the integration document with new status and learnings
