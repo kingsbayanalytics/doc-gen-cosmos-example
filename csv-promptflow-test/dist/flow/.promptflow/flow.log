@@ -1,0 +1,12 @@
+2025-06-23 19:55:07 -0400   29502 execution.flow     INFO     Start executing nodes in thread pool mode.
+2025-06-23 19:55:07 -0400   29502 execution.flow     INFO     Start to run 4 nodes with concurrency level 16.
+2025-06-23 19:55:07 -0400   29502 execution.flow     INFO     The node 'search_query_runner' will be bypassed because the activate condition is not met, i.e. '${flow.use_search}' is not equal to 'True'.
+2025-06-23 19:55:07 -0400   29502 execution.flow     INFO     Bypassing node search_query_runner. node run id: c6dee02b-b7bc-476c-9354-3e868c29c2b7_search_query_runner_0
+2025-06-23 19:55:07 -0400   29502 execution.flow     INFO     Executing node query_interpreter. node run id: c6dee02b-b7bc-476c-9354-3e868c29c2b7_query_interpreter_0
+2025-06-23 19:55:08 -0400   29502 execution.flow     INFO     Node query_interpreter completes.
+2025-06-23 19:55:08 -0400   29502 execution.flow     INFO     Executing node cosmos_query_runner. node run id: c6dee02b-b7bc-476c-9354-3e868c29c2b7_cosmos_query_runner_0
+2025-06-23 19:55:08 -0400   29502 execution.flow     INFO     [cosmos_query_runner in line 0 (index starts from 0)] stdout> Executing query: SELECT VALUE COUNT(1) FROM c
+2025-06-23 19:55:08 -0400   29502 execution.flow     INFO     Node cosmos_query_runner completes.
+2025-06-23 19:55:08 -0400   29502 execution.flow     INFO     Executing node llm_enhancer. node run id: c6dee02b-b7bc-476c-9354-3e868c29c2b7_llm_enhancer_0
+2025-06-23 19:55:12 -0400   29502 execution.flow     INFO     Node llm_enhancer completes.
+2025-06-23 19:55:12 -0400   29502 execution.flow     WARNING  The node referenced by output:'search_query_runner' is bypassed, which is not recommended.

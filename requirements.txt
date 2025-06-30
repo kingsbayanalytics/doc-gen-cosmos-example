@@ -1,0 +1,19 @@
+# Azure SDK
+azure-cosmos==4.5.1
+azure-identity==1.15.0
+azure-search-documents==11.5.2
+
+# OpenAI
+openai>=1.8.0
+
+# Prompt Flow
+promptflow>=1.8.0
+promptflow-tools>=1.4.0
+
+# Environment and utilities
+python-dotenv==1.0.0
+
+# Development tools (optional)
+pytest==8.0.0
+black==24.1.1
+pylint==3.0.3

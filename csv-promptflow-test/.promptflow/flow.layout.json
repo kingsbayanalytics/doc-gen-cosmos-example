@@ -1,0 +1,35 @@
+{
+  "nodeLayouts": {
+    "inputs": {
+      "x": 455,
+      "y": 42,
+      "index": -1
+    },
+    "outputs": {
+      "x": 560,
+      "y": 578,
+      "index": -1
+    },
+    "query_interpreter": {
+      "x": 305,
+      "y": 176,
+      "index": 0
+    },
+    "cosmos_query_runner": {
+      "x": 305,
+      "y": 310,
+      "index": 1
+    },
+    "search_query_runner": {
+      "x": 635,
+      "y": 310,
+      "index": 2
+    },
+    "llm_enhancer": {
+      "x": 140,
+      "y": 444,
+      "index": 3
+    }
+  },
+  "orientation": "Vertical"
+}

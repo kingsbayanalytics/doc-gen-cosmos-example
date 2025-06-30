@@ -1,0 +1,312 @@
+[2025-06-29 20:56:38 -0400][pfserving-app][INFO] - Create extension with type: None
+[2025-06-29 20:56:38 -0400][pfserving-app][INFO] - Static_folder: /opt/anaconda3/envs/promptflow-sql/lib/python3.10/site-packages/promptflow/core/_serving/static
+[2025-06-29 20:56:38 -0400][pfserving-app][INFO] - No connection string detected, app insight metric exporter is disabled.
+[2025-06-29 20:56:38 -0400][pfserving-app][INFO] - No OTEL_EXPORTER_OTLP_ENDPOINT or OTEL_EXPORTER_OTLP_METRICS_ENDPOINT detected, OTLP metric exporter is disabled.
+[2025-06-29 20:56:38 -0400][pfserving-app][INFO] - No connection string detected, app insight trace exporter is disabled.
+[2025-06-29 20:56:38 -0400][pfserving-app][INFO] - No OTEL_EXPORTER_OTLP_ENDPOINT or OTEL_EXPORTER_OTLP_TRACES_ENDPOINT detected, OTLP trace exporter is disabled.
+[2025-06-29 20:56:38 -0400][pfserving-app][INFO] - No connection string detected, app insight log exporter is disabled.
+[2025-06-29 20:56:38 -0400][pfserving-app][INFO] - No OTEL_EXPORTER_OTLP_ENDPOINT or OTEL_EXPORTER_OTLP_LOGS_ENDPOINT detected, OTLP log exporter is disabled.
+[2025-06-29 20:56:38 -0400][pfserving-app][WARNING] - No metric exporter enabled.
+[2025-06-29 20:56:38 -0400][pfserving-app][WARNING] - No trace exporter enabled.
+[2025-06-29 20:56:38 -0400][pfserving-app][WARNING] - No log exporter enabled.
+[2025-06-29 20:56:38 -0400][pfserving-app][INFO] - Project path: /Users/mikewarren/promptflow-sql/csv-promptflow-test
+[2025-06-29 20:56:38 -0400][pfserving-app][INFO] - Promptflow executor starts initializing...
+[2025-06-29 20:56:38 -0400][pfserving-app][INFO] - Getting connections from pf client with provider from args: azureml://subscriptions/eb749f93-f254-4609-8900-a250b0f2d418/resourceGroups/smashGPT/providers/Microsoft.MachineLearningServices/workspaces/kba-hub...
+[2025-06-29 20:56:38 -0400][pfserving-app][INFO] - Promptflow get connections successfully. keys: dict_keys([])
+[2025-06-29 20:56:38 -0400][pfserving-app][INFO] - Promptflow executor starts initializing...
+[2025-06-29 20:56:38 -0400][pfserving-app][INFO] - Promptflow executor initiated successfully.
+[2025-06-29 20:56:38 -0400][pfserving-app][INFO] - Promptflow executor initializing succeed!
+ * Serving Flask app 'promptflow.core._serving.app'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://localhost:8080
+Press CTRL+C to quit
+[2025-06-29 20:56:38 -0400][pfserving-app][ERROR] - Promptflow serving app error: {'message': 'Failed to render jinja template. Please modify your prompt to fix the issue.', 'messageFormat': '', 'messageParameters': {}, 'referenceCode': 'Unknown', 'code': 'UserError', 'innerError': None}
+[2025-06-29 20:56:38 -0400][pfserving-app][ERROR] - Promptflow serving error traceback: Traceback (most recent call last):
+  File "/opt/anaconda3/envs/promptflow-sql/lib/python3.10/site-packages/promptflow/core/_serving/v1/blueprint/static_web_blueprint.py", line 27, in home
+    use_sandbox_env = os.environ.get("PF_USE_SANDBOX_FOR_JINJA", "true")
+NameError: name 'os' is not defined
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/promptflow-sql/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/opt/anaconda3/envs/promptflow-sql/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/opt/anaconda3/envs/promptflow-sql/lib/python3.10/site-packages/promptflow/core/_serving/v1/blueprint/static_web_blueprint.py", line 38, in home
+    raise UserErrorException(message=error_message) from e
+promptflow.exceptions.UserErrorException: Failed to render jinja template. Please modify your prompt to fix the issue.
+
+127.0.0.1 - - [29/Jun/2025 20:56:38] "GET / HTTP/1.1" 400 -
+127.0.0.1 - - [29/Jun/2025 20:56:38] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [29/Jun/2025 20:57:04] "GET /health HTTP/1.1" 200 -
+[2025-06-29 20:58:20 -0400][pfserving-app][INFO] - Start monitoring new request, request_id: None, client_request_id: None
+[2025-06-29 20:58:20 -0400][pfserving-app][INFO] - Start loading request data...
+[2025-06-29 20:58:20 -0400][pfserving-app][INFO] - Validating flow input with data '<REDACTED>'
+[2025-06-29 20:58:20 -0400][pfserving-app][INFO] - Execute flow with data '<REDACTED>'
+2025-06-29 20:58:20 -0400   87732 execution.flow     INFO     Start executing nodes in thread pool mode.
+2025-06-29 20:58:20 -0400   87732 execution.flow     INFO     Start to run 4 nodes with concurrency level 16.
+2025-06-29 20:58:20 -0400   87732 execution.flow     INFO     Current thread is not main thread, skip signal handler registration in AsyncNodesScheduler.
+2025-06-29 20:58:20 -0400   87732 execution.flow     INFO     The node 'search_query_runner' will be executed because the activate condition is met, i.e. '${flow.use_search}' is equal to 'True'.
+2025-06-29 20:58:20 -0400   87732 execution.flow     INFO     Executing node query_interpreter. node run id: 70df30d0-8e29-4aaa-b6bf-7cf095c1a8df_query_interpreter_6d2e87c4-f4e4-4a99-a5ee-1d451721db7a
+2025-06-29 20:58:20 -0400   87732 execution.flow     INFO     Executing node search_query_runner. node run id: 70df30d0-8e29-4aaa-b6bf-7cf095c1a8df_search_query_runner_7981591f-e7a6-4781-81f6-29a695bbdd7f
+2025-06-29 20:58:20 -0400   87732 execution.flow     INFO     [search_query_runner in line None (index starts from 0)] stdout> Executing hybrid search for: test pushup query
+2025-06-29 20:58:21 -0400   87732 execution.flow     INFO     Node search_query_runner completes.
+2025-06-29 20:58:22 -0400   87732 execution.flow     INFO     Node query_interpreter completes.
+2025-06-29 20:58:22 -0400   87732 execution.flow     INFO     Executing node cosmos_query_runner. node run id: 70df30d0-8e29-4aaa-b6bf-7cf095c1a8df_cosmos_query_runner_77455376-4d2b-45b2-afc8-28b1e3169c5a
+2025-06-29 20:58:22 -0400   87732 execution.flow     INFO     [cosmos_query_runner in line None (index starts from 0)] stdout> Executing query: SELECT * FROM c WHERE c.Exercise = "Pushup"
+2025-06-29 20:58:22 -0400   87732 execution.flow     INFO     Node cosmos_query_runner completes.
+2025-06-29 20:58:22 -0400   87732 execution.flow     INFO     Executing node llm_enhancer. node run id: 70df30d0-8e29-4aaa-b6bf-7cf095c1a8df_llm_enhancer_c63da1a5-ec97-48ee-9a75-a722a98712c2
+2025-06-29 20:58:34 -0400   87732 execution.flow     INFO     Node llm_enhancer completes.
+[2025-06-29 20:58:34 -0400][pfserving-app][INFO] - Flow run result: <REDACTED>
+[2025-06-29 20:58:34 -0400][pfserving-app][INFO] - Flow does not enable streaming response.
+[2025-06-29 20:58:34 -0400][pfserving-app][INFO] - Finish monitoring request, request_id: None, client_request_id: None.
+127.0.0.1 - - [29/Jun/2025 20:58:34] "POST /score HTTP/1.1" 200 -
+[2025-06-29 21:04:35 -0400][pfserving-app][INFO] - Start monitoring new request, request_id: None, client_request_id: None
+[2025-06-29 21:04:35 -0400][pfserving-app][INFO] - Start loading request data...
+[2025-06-29 21:04:35 -0400][pfserving-app][INFO] - Validating flow input with data '<REDACTED>'
+[2025-06-29 21:04:35 -0400][pfserving-app][INFO] - Execute flow with data '<REDACTED>'
+2025-06-29 21:04:35 -0400   87732 execution.flow     INFO     Start executing nodes in thread pool mode.
+2025-06-29 21:04:35 -0400   87732 execution.flow     INFO     Start to run 4 nodes with concurrency level 16.
+2025-06-29 21:04:35 -0400   87732 execution.flow     INFO     Current thread is not main thread, skip signal handler registration in AsyncNodesScheduler.
+2025-06-29 21:04:35 -0400   87732 execution.flow     INFO     The node 'search_query_runner' will be executed because the activate condition is met, i.e. '${flow.use_search}' is equal to 'True'.
+2025-06-29 21:04:35 -0400   87732 execution.flow     INFO     Executing node query_interpreter. node run id: eb04b51b-2dd1-4733-ab31-c68f10ac4796_query_interpreter_f54a526c-854f-45de-bb6f-943e2392fe59
+2025-06-29 21:04:35 -0400   87732 execution.flow     INFO     Executing node search_query_runner. node run id: eb04b51b-2dd1-4733-ab31-c68f10ac4796_search_query_runner_f7ea7ffa-1dd3-43f6-9dd0-a62b3907ce81
+2025-06-29 21:04:35 -0400   87732 execution.flow     INFO     [search_query_runner in line None (index starts from 0)] stdout> Executing hybrid search for: please make a monthly pushup summary template
+2025-06-29 21:04:36 -0400   87732 execution.flow     INFO     Node query_interpreter completes.
+2025-06-29 21:04:36 -0400   87732 execution.flow     INFO     Executing node cosmos_query_runner. node run id: eb04b51b-2dd1-4733-ab31-c68f10ac4796_cosmos_query_runner_95ef4cb2-5c3a-4c91-8f4d-0f7aee614509
+2025-06-29 21:04:36 -0400   87732 execution.flow     INFO     Node search_query_runner completes.
+2025-06-29 21:04:36 -0400   87732 execution.flow     INFO     [cosmos_query_runner in line None (index starts from 0)] stdout> Executing query: SELECT c.id, c.Set, c.Reps, c.Weight, c.ExType 
+FROM c 
+WHERE c.Exercise = "Pushup" AND c._ts >= DateTimeToTimestamp(GetCurrentDateTime() - 30)
+2025-06-29 21:04:37 -0400   87732 execution.flow     INFO     [cosmos_query_runner in line None (index starts from 0)] stdout> Error executing query: (BadRequest) One of the input values is invalid.
+ActivityId: fa41a5e5-0f97-45c7-bdd6-bedc880780ec, Windows/10.0.20348 cosmos-netstandard-sdk/3.18.0
+Code: BadRequest
+Message: One of the input values is invalid.
+ActivityId: fa41a5e5-0f97-45c7-bdd6-bedc880780ec, Windows/10.0.20348 cosmos-netstandard-sdk/3.18.0
+2025-06-29 21:04:37 -0400   87732 execution.flow     INFO     Node cosmos_query_runner completes.
+2025-06-29 21:04:37 -0400   87732 execution.flow     INFO     Executing node llm_enhancer. node run id: eb04b51b-2dd1-4733-ab31-c68f10ac4796_llm_enhancer_b460d170-b411-4f40-8eee-25f0ad2647f2
+2025-06-29 21:04:44 -0400   87732 execution.flow     INFO     Node llm_enhancer completes.
+[2025-06-29 21:04:44 -0400][pfserving-app][INFO] - Flow run result: <REDACTED>
+[2025-06-29 21:04:44 -0400][pfserving-app][INFO] - Flow does not enable streaming response.
+[2025-06-29 21:04:44 -0400][pfserving-app][INFO] - Finish monitoring request, request_id: None, client_request_id: None.
+127.0.0.1 - - [29/Jun/2025 21:04:44] "POST /score HTTP/1.1" 200 -
+[2025-06-29 21:12:51 -0400][pfserving-app][INFO] - Start monitoring new request, request_id: None, client_request_id: None
+[2025-06-29 21:12:51 -0400][pfserving-app][INFO] - Start loading request data...
+[2025-06-29 21:12:51 -0400][pfserving-app][INFO] - Validating flow input with data '<REDACTED>'
+[2025-06-29 21:12:51 -0400][pfserving-app][INFO] - Execute flow with data '<REDACTED>'
+2025-06-29 21:12:51 -0400   87732 execution.flow     INFO     Start executing nodes in thread pool mode.
+2025-06-29 21:12:51 -0400   87732 execution.flow     INFO     Start to run 4 nodes with concurrency level 16.
+2025-06-29 21:12:51 -0400   87732 execution.flow     INFO     Current thread is not main thread, skip signal handler registration in AsyncNodesScheduler.
+2025-06-29 21:12:51 -0400   87732 execution.flow     INFO     The node 'search_query_runner' will be executed because the activate condition is met, i.e. '${flow.use_search}' is equal to 'True'.
+2025-06-29 21:12:51 -0400   87732 execution.flow     INFO     Executing node query_interpreter. node run id: 62ca245f-2c10-4ae2-b402-88c9f8bb401f_query_interpreter_ff07d20d-d448-4b30-9cf3-87fd9d13d312
+2025-06-29 21:12:51 -0400   87732 execution.flow     INFO     Executing node search_query_runner. node run id: 62ca245f-2c10-4ae2-b402-88c9f8bb401f_search_query_runner_25639e68-563e-4eb6-b975-b3792d1ed64d
+2025-06-29 21:12:51 -0400   87732 execution.flow     INFO     [search_query_runner in line None (index starts from 0)] stdout> Executing hybrid search for: please make a monthly pushup summary template
+2025-06-29 21:12:52 -0400   87732 execution.flow     INFO     Node query_interpreter completes.
+2025-06-29 21:12:52 -0400   87732 execution.flow     INFO     Executing node cosmos_query_runner. node run id: 62ca245f-2c10-4ae2-b402-88c9f8bb401f_cosmos_query_runner_ef6e09e7-05d2-4792-9a8c-b38ba2c11eda
+2025-06-29 21:12:52 -0400   87732 execution.flow     INFO     Node search_query_runner completes.
+2025-06-29 21:12:53 -0400   87732 execution.flow     INFO     [cosmos_query_runner in line None (index starts from 0)] stdout> Executing query: SELECT c.id, c.Set, c.Reps, c.Weight, c.ExType 
+FROM c 
+WHERE c.Exercise = "Pushup"
+2025-06-29 21:12:53 -0400   87732 execution.flow     INFO     [cosmos_query_runner in line None (index starts from 0)] stdout> Error executing query: (BadRequest) One of the input values is invalid.
+ActivityId: cc7c2936-34e0-45a5-bf80-395d10a94254, Windows/10.0.20348 cosmos-netstandard-sdk/3.18.0
+Code: BadRequest
+Message: One of the input values is invalid.
+ActivityId: cc7c2936-34e0-45a5-bf80-395d10a94254, Windows/10.0.20348 cosmos-netstandard-sdk/3.18.0
+2025-06-29 21:12:53 -0400   87732 execution.flow     INFO     Node cosmos_query_runner completes.
+2025-06-29 21:12:53 -0400   87732 execution.flow     INFO     Executing node llm_enhancer. node run id: 62ca245f-2c10-4ae2-b402-88c9f8bb401f_llm_enhancer_85ca8104-32eb-4629-bf9a-f92ca647de72
+2025-06-29 21:12:57 -0400   87732 execution.flow     INFO     Node llm_enhancer completes.
+[2025-06-29 21:12:57 -0400][pfserving-app][INFO] - Flow run result: <REDACTED>
+[2025-06-29 21:12:57 -0400][pfserving-app][INFO] - Flow does not enable streaming response.
+[2025-06-29 21:12:57 -0400][pfserving-app][INFO] - Finish monitoring request, request_id: None, client_request_id: None.
+127.0.0.1 - - [29/Jun/2025 21:12:57] "POST /score HTTP/1.1" 200 -
+[2025-06-29 21:39:51 -0400][pfserving-app][INFO] - Start monitoring new request, request_id: None, client_request_id: None
+[2025-06-29 21:39:51 -0400][pfserving-app][INFO] - Start loading request data...
+[2025-06-29 21:39:51 -0400][pfserving-app][INFO] - Validating flow input with data '<REDACTED>'
+[2025-06-29 21:39:51 -0400][pfserving-app][INFO] - Execute flow with data '<REDACTED>'
+2025-06-29 21:39:51 -0400   87732 execution.flow     INFO     Start executing nodes in thread pool mode.
+2025-06-29 21:39:51 -0400   87732 execution.flow     INFO     Start to run 4 nodes with concurrency level 16.
+2025-06-29 21:39:51 -0400   87732 execution.flow     INFO     Current thread is not main thread, skip signal handler registration in AsyncNodesScheduler.
+2025-06-29 21:39:51 -0400   87732 execution.flow     INFO     The node 'search_query_runner' will be executed because the activate condition is met, i.e. '${flow.use_search}' is equal to 'True'.
+2025-06-29 21:39:51 -0400   87732 execution.flow     INFO     Executing node query_interpreter. node run id: 86db3d94-531c-4050-ab42-9707f0f7ceeb_query_interpreter_8e2dd0f0-5faa-48a7-bc27-99895af3d332
+2025-06-29 21:39:51 -0400   87732 execution.flow     INFO     Executing node search_query_runner. node run id: 86db3d94-531c-4050-ab42-9707f0f7ceeb_search_query_runner_9e9b48d8-8e5f-42ba-96dc-a326f1094b15
+2025-06-29 21:39:51 -0400   87732 execution.flow     INFO     [search_query_runner in line None (index starts from 0)] stdout> Executing hybrid search for: please make a monthly pushup report template
+2025-06-29 21:39:52 -0400   87732 execution.flow     INFO     Node query_interpreter completes.
+2025-06-29 21:39:52 -0400   87732 execution.flow     INFO     Executing node cosmos_query_runner. node run id: 86db3d94-531c-4050-ab42-9707f0f7ceeb_cosmos_query_runner_9df7512c-0d7f-463c-b5b9-e7c24cc781c9
+2025-06-29 21:39:52 -0400   87732 execution.flow     INFO     [cosmos_query_runner in line None (index starts from 0)] stdout> Executing query: SELECT c.id, c.Exercise, c.Set, c.Reps, c.Weight, c.ExType FROM c WHERE c.Exercise = "Pushup"
+2025-06-29 21:39:52 -0400   87732 execution.flow     INFO     Node search_query_runner completes.
+2025-06-29 21:39:52 -0400   87732 execution.flow     INFO     [cosmos_query_runner in line None (index starts from 0)] stdout> Error executing query: (BadRequest) One of the input values is invalid.
+ActivityId: 93d94875-1a10-4c7e-8d0a-dd093f9cd70a, Windows/10.0.20348 cosmos-netstandard-sdk/3.18.0
+Code: BadRequest
+Message: One of the input values is invalid.
+ActivityId: 93d94875-1a10-4c7e-8d0a-dd093f9cd70a, Windows/10.0.20348 cosmos-netstandard-sdk/3.18.0
+2025-06-29 21:39:52 -0400   87732 execution.flow     INFO     Node cosmos_query_runner completes.
+2025-06-29 21:39:52 -0400   87732 execution.flow     INFO     Executing node llm_enhancer. node run id: 86db3d94-531c-4050-ab42-9707f0f7ceeb_llm_enhancer_2917a2e5-c8b6-4c72-a1ad-e200ba1210a4
+2025-06-29 21:39:59 -0400   87732 execution.flow     INFO     Node llm_enhancer completes.
+[2025-06-29 21:39:59 -0400][pfserving-app][INFO] - Flow run result: <REDACTED>
+[2025-06-29 21:39:59 -0400][pfserving-app][INFO] - Flow does not enable streaming response.
+[2025-06-29 21:39:59 -0400][pfserving-app][INFO] - Finish monitoring request, request_id: None, client_request_id: None.
+127.0.0.1 - - [29/Jun/2025 21:39:59] "POST /score HTTP/1.1" 200 -
+[2025-06-29 21:47:25 -0400][pfserving-app][INFO] - Start monitoring new request, request_id: None, client_request_id: None
+[2025-06-29 21:47:25 -0400][pfserving-app][INFO] - Start loading request data...
+[2025-06-29 21:47:25 -0400][pfserving-app][INFO] - Validating flow input with data '<REDACTED>'
+[2025-06-29 21:47:25 -0400][pfserving-app][INFO] - Execute flow with data '<REDACTED>'
+2025-06-29 21:47:25 -0400   87732 execution.flow     INFO     Start executing nodes in thread pool mode.
+2025-06-29 21:47:25 -0400   87732 execution.flow     INFO     Start to run 4 nodes with concurrency level 16.
+2025-06-29 21:47:25 -0400   87732 execution.flow     INFO     Current thread is not main thread, skip signal handler registration in AsyncNodesScheduler.
+2025-06-29 21:47:25 -0400   87732 execution.flow     INFO     The node 'search_query_runner' will be executed because the activate condition is met, i.e. '${flow.use_search}' is equal to 'True'.
+2025-06-29 21:47:25 -0400   87732 execution.flow     INFO     Executing node query_interpreter. node run id: 8a01b240-3f85-4c90-b7b2-899d5349ec65_query_interpreter_9fbd79c2-adfa-4b72-982d-f85b704be2e9
+2025-06-29 21:47:25 -0400   87732 execution.flow     INFO     Executing node search_query_runner. node run id: 8a01b240-3f85-4c90-b7b2-899d5349ec65_search_query_runner_921686e8-c9bc-4c76-849d-773dcc2ad220
+2025-06-29 21:47:25 -0400   87732 execution.flow     INFO     [search_query_runner in line None (index starts from 0)] stdout> Executing hybrid search for: please make a monthly pushup report template
+2025-06-29 21:47:26 -0400   87732 execution.flow     INFO     Node query_interpreter completes.
+2025-06-29 21:47:26 -0400   87732 execution.flow     INFO     Executing node cosmos_query_runner. node run id: 8a01b240-3f85-4c90-b7b2-899d5349ec65_cosmos_query_runner_13a67601-0563-49d3-badd-d0c9d3f7238e
+2025-06-29 21:47:26 -0400   87732 execution.flow     INFO     Node search_query_runner completes.
+2025-06-29 21:47:26 -0400   87732 execution.flow     INFO     [cosmos_query_runner in line None (index starts from 0)] stdout> Executing query: SELECT c.id, c.Exercise, c.Set, c.Reps, c.Weight, c.ExType FROM c WHERE c.Exercise = "Pushup"
+2025-06-29 21:47:27 -0400   87732 execution.flow     INFO     [cosmos_query_runner in line None (index starts from 0)] stdout> Error executing query: (BadRequest) One of the input values is invalid.
+ActivityId: 618e81ad-db79-46b0-908e-7e9a906cabe9, Windows/10.0.20348 cosmos-netstandard-sdk/3.18.0
+Code: BadRequest
+Message: One of the input values is invalid.
+ActivityId: 618e81ad-db79-46b0-908e-7e9a906cabe9, Windows/10.0.20348 cosmos-netstandard-sdk/3.18.0
+2025-06-29 21:47:27 -0400   87732 execution.flow     INFO     Node cosmos_query_runner completes.
+2025-06-29 21:47:27 -0400   87732 execution.flow     INFO     Executing node llm_enhancer. node run id: 8a01b240-3f85-4c90-b7b2-899d5349ec65_llm_enhancer_fa60b337-fa5f-4734-83a0-b2e601ab4d19
+2025-06-29 21:47:36 -0400   87732 execution.flow     INFO     Node llm_enhancer completes.
+[2025-06-29 21:47:36 -0400][pfserving-app][INFO] - Flow run result: <REDACTED>
+[2025-06-29 21:47:36 -0400][pfserving-app][INFO] - Flow does not enable streaming response.
+[2025-06-29 21:47:36 -0400][pfserving-app][INFO] - Finish monitoring request, request_id: None, client_request_id: None.
+127.0.0.1 - - [29/Jun/2025 21:47:36] "POST /score HTTP/1.1" 200 -
+[2025-06-29 21:59:02 -0400][pfserving-app][INFO] - Start monitoring new request, request_id: None, client_request_id: None
+[2025-06-29 21:59:02 -0400][pfserving-app][INFO] - Start loading request data...
+[2025-06-29 21:59:02 -0400][pfserving-app][INFO] - Validating flow input with data '<REDACTED>'
+[2025-06-29 21:59:02 -0400][pfserving-app][INFO] - Execute flow with data '<REDACTED>'
+2025-06-29 21:59:02 -0400   87732 execution.flow     INFO     Start executing nodes in thread pool mode.
+2025-06-29 21:59:02 -0400   87732 execution.flow     INFO     Start to run 4 nodes with concurrency level 16.
+2025-06-29 21:59:02 -0400   87732 execution.flow     INFO     Current thread is not main thread, skip signal handler registration in AsyncNodesScheduler.
+2025-06-29 21:59:02 -0400   87732 execution.flow     INFO     The node 'search_query_runner' will be executed because the activate condition is met, i.e. '${flow.use_search}' is equal to 'True'.
+2025-06-29 21:59:02 -0400   87732 execution.flow     INFO     Executing node query_interpreter. node run id: 4a6d488a-e97b-47c5-84a6-1f2089b02f29_query_interpreter_79193b64-b981-4f6d-969f-f9092f7744df
+2025-06-29 21:59:02 -0400   87732 execution.flow     INFO     Executing node search_query_runner. node run id: 4a6d488a-e97b-47c5-84a6-1f2089b02f29_search_query_runner_46b9029d-c2e7-45cf-a682-0d4df0064b10
+2025-06-29 21:59:02 -0400   87732 execution.flow     INFO     [search_query_runner in line None (index starts from 0)] stdout> Executing hybrid search for: please make a monthly pushup report template
+2025-06-29 21:59:03 -0400   87732 execution.flow     INFO     Node query_interpreter completes.
+2025-06-29 21:59:03 -0400   87732 execution.flow     INFO     Executing node cosmos_query_runner. node run id: 4a6d488a-e97b-47c5-84a6-1f2089b02f29_cosmos_query_runner_5de5b149-2ba0-4c5d-b2c7-daf59cb14914
+2025-06-29 21:59:03 -0400   87732 execution.flow     INFO     [cosmos_query_runner in line None (index starts from 0)] stdout> Executing query: SELECT c.id, c.Exercise, c.Set, c.Reps, c.Weight, c.ExType FROM c WHERE c.Exercise = "Pushup"
+2025-06-29 21:59:03 -0400   87732 execution.flow     INFO     Node search_query_runner completes.
+2025-06-29 21:59:03 -0400   87732 execution.flow     INFO     [cosmos_query_runner in line None (index starts from 0)] stdout> Error executing query: (BadRequest) One of the input values is invalid.
+ActivityId: e71884f1-fe8f-4c0d-a43c-d7f8c6e819a1, Windows/10.0.20348 cosmos-netstandard-sdk/3.18.0
+Code: BadRequest
+Message: One of the input values is invalid.
+ActivityId: e71884f1-fe8f-4c0d-a43c-d7f8c6e819a1, Windows/10.0.20348 cosmos-netstandard-sdk/3.18.0
+2025-06-29 21:59:03 -0400   87732 execution.flow     INFO     Node cosmos_query_runner completes.
+2025-06-29 21:59:03 -0400   87732 execution.flow     INFO     Executing node llm_enhancer. node run id: 4a6d488a-e97b-47c5-84a6-1f2089b02f29_llm_enhancer_61213061-5a28-4f4b-a301-0924b37bb183
+2025-06-29 21:59:10 -0400   87732 execution.flow     INFO     Node llm_enhancer completes.
+[2025-06-29 21:59:10 -0400][pfserving-app][INFO] - Flow run result: <REDACTED>
+[2025-06-29 21:59:10 -0400][pfserving-app][INFO] - Flow does not enable streaming response.
+[2025-06-29 21:59:10 -0400][pfserving-app][INFO] - Finish monitoring request, request_id: None, client_request_id: None.
+127.0.0.1 - - [29/Jun/2025 21:59:10] "POST /score HTTP/1.1" 200 -
+[2025-06-29 22:05:35 -0400][pfserving-app][INFO] - Start monitoring new request, request_id: None, client_request_id: None
+[2025-06-29 22:05:35 -0400][pfserving-app][INFO] - Start loading request data...
+[2025-06-29 22:05:35 -0400][pfserving-app][INFO] - Validating flow input with data '<REDACTED>'
+[2025-06-29 22:05:35 -0400][pfserving-app][INFO] - Execute flow with data '<REDACTED>'
+2025-06-29 22:05:35 -0400   87732 execution.flow     INFO     Start executing nodes in thread pool mode.
+2025-06-29 22:05:35 -0400   87732 execution.flow     INFO     Start to run 4 nodes with concurrency level 16.
+2025-06-29 22:05:35 -0400   87732 execution.flow     INFO     Current thread is not main thread, skip signal handler registration in AsyncNodesScheduler.
+2025-06-29 22:05:35 -0400   87732 execution.flow     INFO     The node 'search_query_runner' will be executed because the activate condition is met, i.e. '${flow.use_search}' is equal to 'True'.
+2025-06-29 22:05:35 -0400   87732 execution.flow     INFO     Executing node query_interpreter. node run id: 2eed3257-0ad3-41aa-9279-10e0d84a7cad_query_interpreter_295c1484-8ead-4a71-999a-db913f2e36e8
+2025-06-29 22:05:35 -0400   87732 execution.flow     INFO     Executing node search_query_runner. node run id: 2eed3257-0ad3-41aa-9279-10e0d84a7cad_search_query_runner_18c59ed8-a4f5-4355-b589-182b01ae4541
+2025-06-29 22:05:35 -0400   87732 execution.flow     INFO     [search_query_runner in line None (index starts from 0)] stdout> Executing hybrid search for: please make a monthly pushup report template
+2025-06-29 22:05:36 -0400   87732 execution.flow     INFO     Node query_interpreter completes.
+2025-06-29 22:05:36 -0400   87732 execution.flow     INFO     Executing node cosmos_query_runner. node run id: 2eed3257-0ad3-41aa-9279-10e0d84a7cad_cosmos_query_runner_53b0b66a-4f81-4bce-8230-2213aac5a276
+2025-06-29 22:05:36 -0400   87732 execution.flow     INFO     Node search_query_runner completes.
+2025-06-29 22:05:36 -0400   87732 execution.flow     INFO     [cosmos_query_runner in line None (index starts from 0)] stdout> Executing query: SELECT c.id, c.Exercise, c.Set, c.Reps, c.Weight, c.ExType FROM c WHERE c.Exercise = "Pushup"
+2025-06-29 22:05:36 -0400   87732 execution.flow     INFO     [cosmos_query_runner in line None (index starts from 0)] stdout> Error executing query: (BadRequest) One of the input values is invalid.
+ActivityId: 7eb7a6c8-ddfd-4a6d-acd2-475826bf6ef7, Windows/10.0.20348 cosmos-netstandard-sdk/3.18.0
+Code: BadRequest
+Message: One of the input values is invalid.
+ActivityId: 7eb7a6c8-ddfd-4a6d-acd2-475826bf6ef7, Windows/10.0.20348 cosmos-netstandard-sdk/3.18.0
+2025-06-29 22:05:36 -0400   87732 execution.flow     INFO     Node cosmos_query_runner completes.
+2025-06-29 22:05:36 -0400   87732 execution.flow     INFO     Executing node llm_enhancer. node run id: 2eed3257-0ad3-41aa-9279-10e0d84a7cad_llm_enhancer_58fa6ae0-85cf-4a42-ba4e-6caef46b47f1
+2025-06-29 22:05:44 -0400   87732 execution.flow     INFO     Node llm_enhancer completes.
+[2025-06-29 22:05:44 -0400][pfserving-app][INFO] - Flow run result: <REDACTED>
+[2025-06-29 22:05:44 -0400][pfserving-app][INFO] - Flow does not enable streaming response.
+[2025-06-29 22:05:44 -0400][pfserving-app][INFO] - Finish monitoring request, request_id: None, client_request_id: None.
+127.0.0.1 - - [29/Jun/2025 22:05:44] "POST /score HTTP/1.1" 200 -
+[2025-06-29 22:11:48 -0400][pfserving-app][INFO] - Start monitoring new request, request_id: None, client_request_id: None
+[2025-06-29 22:11:48 -0400][pfserving-app][INFO] - Start loading request data...
+[2025-06-29 22:11:48 -0400][pfserving-app][INFO] - Validating flow input with data '<REDACTED>'
+[2025-06-29 22:11:48 -0400][pfserving-app][INFO] - Execute flow with data '<REDACTED>'
+2025-06-29 22:11:48 -0400   87732 execution.flow     INFO     Start executing nodes in thread pool mode.
+2025-06-29 22:11:48 -0400   87732 execution.flow     INFO     Start to run 4 nodes with concurrency level 16.
+2025-06-29 22:11:48 -0400   87732 execution.flow     INFO     Current thread is not main thread, skip signal handler registration in AsyncNodesScheduler.
+2025-06-29 22:11:48 -0400   87732 execution.flow     INFO     The node 'search_query_runner' will be executed because the activate condition is met, i.e. '${flow.use_search}' is equal to 'True'.
+2025-06-29 22:11:48 -0400   87732 execution.flow     INFO     Executing node search_query_runner. node run id: fe136636-8ab0-41d2-9995-47c9862ee434_search_query_runner_00e8bcd2-8923-4ec5-91a1-dda394f2e38e
+2025-06-29 22:11:48 -0400   87732 execution.flow     INFO     Executing node query_interpreter. node run id: fe136636-8ab0-41d2-9995-47c9862ee434_query_interpreter_16505bdc-3505-4fdb-b32a-90af8bafafa0
+2025-06-29 22:11:48 -0400   87732 execution.flow     INFO     [search_query_runner in line None (index starts from 0)] stdout> Executing hybrid search for: please make a monthly pushup report template
+2025-06-29 22:11:49 -0400   87732 execution.flow     INFO     Node search_query_runner completes.
+2025-06-29 22:11:49 -0400   87732 execution.flow     INFO     Node query_interpreter completes.
+2025-06-29 22:11:49 -0400   87732 execution.flow     INFO     Executing node cosmos_query_runner. node run id: fe136636-8ab0-41d2-9995-47c9862ee434_cosmos_query_runner_f42431ea-87c9-4aaf-a89d-d03048f14fde
+2025-06-29 22:11:49 -0400   87732 execution.flow     INFO     [cosmos_query_runner in line None (index starts from 0)] stdout> Executing query: SELECT c.id, c.Exercise, c.Set, c.Reps, c.Weight, c.ExType FROM c WHERE c.Exercise = "Pushup"
+2025-06-29 22:11:50 -0400   87732 execution.flow     INFO     [cosmos_query_runner in line None (index starts from 0)] stdout> Error executing query: (BadRequest) One of the input values is invalid.
+ActivityId: 5087dcc8-22b8-40a8-bc21-d263e1fd69f5, Windows/10.0.20348 cosmos-netstandard-sdk/3.18.0
+Code: BadRequest
+Message: One of the input values is invalid.
+ActivityId: 5087dcc8-22b8-40a8-bc21-d263e1fd69f5, Windows/10.0.20348 cosmos-netstandard-sdk/3.18.0
+2025-06-29 22:11:50 -0400   87732 execution.flow     INFO     Node cosmos_query_runner completes.
+2025-06-29 22:11:50 -0400   87732 execution.flow     INFO     Executing node llm_enhancer. node run id: fe136636-8ab0-41d2-9995-47c9862ee434_llm_enhancer_1eae1c1f-6b87-417f-b069-3eb84253a562
+2025-06-29 22:11:58 -0400   87732 execution.flow     INFO     Node llm_enhancer completes.
+[2025-06-29 22:11:58 -0400][pfserving-app][INFO] - Flow run result: <REDACTED>
+[2025-06-29 22:11:58 -0400][pfserving-app][INFO] - Flow does not enable streaming response.
+[2025-06-29 22:11:58 -0400][pfserving-app][INFO] - Finish monitoring request, request_id: None, client_request_id: None.
+127.0.0.1 - - [29/Jun/2025 22:11:58] "POST /score HTTP/1.1" 200 -
+[2025-06-29 22:16:32 -0400][pfserving-app][INFO] - Start monitoring new request, request_id: None, client_request_id: None
+[2025-06-29 22:16:32 -0400][pfserving-app][INFO] - Start loading request data...
+[2025-06-29 22:16:32 -0400][pfserving-app][INFO] - Validating flow input with data '<REDACTED>'
+[2025-06-29 22:16:32 -0400][pfserving-app][INFO] - Execute flow with data '<REDACTED>'
+2025-06-29 22:16:32 -0400   87732 execution.flow     INFO     Start executing nodes in thread pool mode.
+2025-06-29 22:16:32 -0400   87732 execution.flow     INFO     Start to run 4 nodes with concurrency level 16.
+2025-06-29 22:16:32 -0400   87732 execution.flow     INFO     Current thread is not main thread, skip signal handler registration in AsyncNodesScheduler.
+2025-06-29 22:16:32 -0400   87732 execution.flow     INFO     The node 'search_query_runner' will be executed because the activate condition is met, i.e. '${flow.use_search}' is equal to 'True'.
+2025-06-29 22:16:32 -0400   87732 execution.flow     INFO     Executing node query_interpreter. node run id: ad1c19fc-c224-4698-a1d6-d383418d3f7a_query_interpreter_f7a4e68b-eeb9-425c-9185-1e623b8f3084
+2025-06-29 22:16:32 -0400   87732 execution.flow     INFO     Executing node search_query_runner. node run id: ad1c19fc-c224-4698-a1d6-d383418d3f7a_search_query_runner_c2c58194-b436-4ea1-8c8a-ee06744fdb7f
+2025-06-29 22:16:32 -0400   87732 execution.flow     INFO     [search_query_runner in line None (index starts from 0)] stdout> Executing hybrid search for: please make a monthly pushup report template
+2025-06-29 22:16:33 -0400   87732 execution.flow     INFO     Node query_interpreter completes.
+2025-06-29 22:16:33 -0400   87732 execution.flow     INFO     Executing node cosmos_query_runner. node run id: ad1c19fc-c224-4698-a1d6-d383418d3f7a_cosmos_query_runner_0aa024f1-7689-4394-85a3-27765aedcc88
+2025-06-29 22:16:33 -0400   87732 execution.flow     INFO     [cosmos_query_runner in line None (index starts from 0)] stdout> Executing query: SELECT c.id, c.Exercise, c.Set, c.Reps, c.Weight, c.ExType FROM c WHERE c.Exercise = "Pushup"
+2025-06-29 22:16:33 -0400   87732 execution.flow     INFO     Node search_query_runner completes.
+2025-06-29 22:16:33 -0400   87732 execution.flow     INFO     [cosmos_query_runner in line None (index starts from 0)] stdout> Error executing query: (BadRequest) One of the input values is invalid.
+ActivityId: 946986e4-804a-46c4-b190-9a26a5f8b0c1, Windows/10.0.20348 cosmos-netstandard-sdk/3.18.0
+Code: BadRequest
+Message: One of the input values is invalid.
+ActivityId: 946986e4-804a-46c4-b190-9a26a5f8b0c1, Windows/10.0.20348 cosmos-netstandard-sdk/3.18.0
+2025-06-29 22:16:33 -0400   87732 execution.flow     INFO     Node cosmos_query_runner completes.
+2025-06-29 22:16:33 -0400   87732 execution.flow     INFO     Executing node llm_enhancer. node run id: ad1c19fc-c224-4698-a1d6-d383418d3f7a_llm_enhancer_cc332fb7-ca9a-43f5-9cdf-2f7d84cc39e9
+2025-06-29 22:16:39 -0400   87732 execution.flow     INFO     Node llm_enhancer completes.
+[2025-06-29 22:16:39 -0400][pfserving-app][INFO] - Flow run result: <REDACTED>
+[2025-06-29 22:16:39 -0400][pfserving-app][INFO] - Flow does not enable streaming response.
+[2025-06-29 22:16:39 -0400][pfserving-app][INFO] - Finish monitoring request, request_id: None, client_request_id: None.
+127.0.0.1 - - [29/Jun/2025 22:16:39] "POST /score HTTP/1.1" 200 -
+[2025-06-29 22:23:22 -0400][pfserving-app][INFO] - Start monitoring new request, request_id: None, client_request_id: None
+[2025-06-29 22:23:22 -0400][pfserving-app][INFO] - Start loading request data...
+[2025-06-29 22:23:22 -0400][pfserving-app][INFO] - Validating flow input with data '<REDACTED>'
+[2025-06-29 22:23:22 -0400][pfserving-app][INFO] - Execute flow with data '<REDACTED>'
+2025-06-29 22:23:22 -0400   87732 execution.flow     INFO     Start executing nodes in thread pool mode.
+2025-06-29 22:23:22 -0400   87732 execution.flow     INFO     Start to run 4 nodes with concurrency level 16.
+2025-06-29 22:23:22 -0400   87732 execution.flow     INFO     Current thread is not main thread, skip signal handler registration in AsyncNodesScheduler.
+2025-06-29 22:23:22 -0400   87732 execution.flow     INFO     The node 'search_query_runner' will be executed because the activate condition is met, i.e. '${flow.use_search}' is equal to 'True'.
+2025-06-29 22:23:22 -0400   87732 execution.flow     INFO     Executing node query_interpreter. node run id: 8838c08c-b8e3-4a48-a072-66bf44d8bc82_query_interpreter_bf4af350-3ca6-4c95-a595-79f1f693afc5
+2025-06-29 22:23:22 -0400   87732 execution.flow     INFO     Executing node search_query_runner. node run id: 8838c08c-b8e3-4a48-a072-66bf44d8bc82_search_query_runner_9e769869-4b4e-4be6-86c7-c52392eedfc3
+2025-06-29 22:23:22 -0400   87732 execution.flow     INFO     [search_query_runner in line None (index starts from 0)] stdout> Executing hybrid search for: please generate a monthly pushup report template
+2025-06-29 22:23:23 -0400   87732 execution.flow     INFO     Node search_query_runner completes.
+2025-06-29 22:23:23 -0400   87732 execution.flow     INFO     Node query_interpreter completes.
+2025-06-29 22:23:23 -0400   87732 execution.flow     INFO     Executing node cosmos_query_runner. node run id: 8838c08c-b8e3-4a48-a072-66bf44d8bc82_cosmos_query_runner_ea613ff9-44aa-4368-a7e6-595e4cc37883
+2025-06-29 22:23:23 -0400   87732 execution.flow     INFO     [cosmos_query_runner in line None (index starts from 0)] stdout> Executing query: SELECT c.id, c.Exercise, c.Set, c.Reps, c.Weight, c.ExType FROM c WHERE c.Exercise = "Pushup"
+2025-06-29 22:23:23 -0400   87732 execution.flow     INFO     [cosmos_query_runner in line None (index starts from 0)] stdout> Error executing query: (BadRequest) One of the input values is invalid.
+ActivityId: e6e06b43-3a28-4b18-ba68-084fb676d3c7, Windows/10.0.20348 cosmos-netstandard-sdk/3.18.0
+Code: BadRequest
+Message: One of the input values is invalid.
+ActivityId: e6e06b43-3a28-4b18-ba68-084fb676d3c7, Windows/10.0.20348 cosmos-netstandard-sdk/3.18.0
+2025-06-29 22:23:23 -0400   87732 execution.flow     INFO     Node cosmos_query_runner completes.
+2025-06-29 22:23:23 -0400   87732 execution.flow     INFO     Executing node llm_enhancer. node run id: 8838c08c-b8e3-4a48-a072-66bf44d8bc82_llm_enhancer_f1997f46-298f-4b0c-b3af-57a311cd099b
+2025-06-29 22:23:30 -0400   87732 execution.flow     INFO     Node llm_enhancer completes.
+[2025-06-29 22:23:30 -0400][pfserving-app][INFO] - Flow run result: <REDACTED>
+[2025-06-29 22:23:30 -0400][pfserving-app][INFO] - Flow does not enable streaming response.
+[2025-06-29 22:23:30 -0400][pfserving-app][INFO] - Finish monitoring request, request_id: None, client_request_id: None.
+127.0.0.1 - - [29/Jun/2025 22:23:30] "POST /score HTTP/1.1" 200 -

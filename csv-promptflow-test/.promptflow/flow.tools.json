@@ -1,0 +1,130 @@
+{
+  "package": {
+    "promptflow.tools.embedding.embedding": {
+      "name": "Embedding",
+      "description": "Use Open AI's embedding model to create an embedding vector representing the input text.",
+      "type": "python",
+      "module": "promptflow.tools.embedding",
+      "function": "embedding",
+      "inputs": {
+        "connection": {
+          "type": [
+            "AzureOpenAIConnection",
+            "OpenAIConnection"
+          ]
+        },
+        "deployment_name": {
+          "type": [
+            "string"
+          ],
+          "enabled_by": "connection",
+          "enabled_by_type": [
+            "AzureOpenAIConnection"
+          ],
+          "capabilities": {
+            "completion": false,
+            "chat_completion": false,
+            "embeddings": true
+          },
+          "model_list": [
+            "text-embedding-ada-002",
+            "text-search-ada-doc-001",
+            "text-search-ada-query-001"
+          ]
+        },
+        "model": {
+          "type": [
+            "string"
+          ],
+          "enabled_by": "connection",
+          "enabled_by_type": [
+            "OpenAIConnection"
+          ],
+          "enum": [
+            "text-embedding-ada-002",
+            "text-search-ada-doc-001",
+            "text-search-ada-query-001"
+          ],
+          "allow_manual_entry": true
+        },
+        "input": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "package": "promptflow-tools",
+      "package_version": "1.4.0"
+    }
+  },
+  "code": {
+    "query_interpreter.py": {
+      "type": "python",
+      "inputs": {
+        "question": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "description": "Convert natural language question to Cosmos DB SQL query.\n\nArgs:\n    question: Natural language question about workout data\n    \nReturns:\n    SQL query string for Cosmos DB",
+      "source": "query_interpreter.py",
+      "function": "query_interpreter"
+    },
+    "cosmos_query_runner.py": {
+      "type": "python",
+      "inputs": {
+        "sql_query": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "description": "Execute SQL query against Cosmos DB and return results.\n\nArgs:\n    sql_query: SQL query string to execute\n    \nReturns:\n    JSON string containing query results or error message",
+      "source": "cosmos_query_runner.py",
+      "function": "cosmos_query_runner"
+    },
+    "search_query_runner.py": {
+      "type": "python",
+      "inputs": {
+        "question": {
+          "type": [
+            "string"
+          ]
+        },
+        "search_type": {
+          "type": [
+            "string"
+          ],
+          "default": "hybrid"
+        }
+      },
+      "description": "Execute search against Azure AI Search using semantic, vector, or hybrid search.\n\nArgs:\n    question: Natural language question about workout data\n    search_type: Type of search - \"semantic\", \"vector\", \"hybrid\", or \"keyword\"\n    \nReturns:\n    JSON string containing search results",
+      "source": "search_query_runner.py",
+      "function": "search_query_runner"
+    },
+    "llm_enhancer.py": {
+      "type": "python",
+      "inputs": {
+        "question": {
+          "type": [
+            "string"
+          ]
+        },
+        "sql_results": {
+          "type": [
+            "string"
+          ]
+        },
+        "search_results": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "description": "Enhance query results with LLM-powered analysis, insights, and natural language summaries.\n\nArgs:\n    question: Original user question\n    sql_results: Results from SQL query against Cosmos DB\n    search_results: Optional results from Azure AI Search\n    \nReturns:\n    Enhanced analysis with insights, summaries, and recommendations",
+      "source": "llm_enhancer.py",
+      "function": "llm_enhancer"
+    }
+  }
+}

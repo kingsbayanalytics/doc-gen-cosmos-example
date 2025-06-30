@@ -1,0 +1,6 @@
+azure-cosmos==4.5.1
+azure-search-documents==11.5.2
+openai>=1.8.0
+promptflow>=1.8.0
+promptflow-tools>=1.4.0
+python-dotenv==1.0.0

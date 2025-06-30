@@ -1,0 +1,13 @@
+2025-06-29 05:59:48 -0400   34332 execution.flow     INFO     Start executing nodes in thread pool mode.
+2025-06-29 05:59:48 -0400   34332 execution.flow     INFO     Start to run 4 nodes with concurrency level 16.
+2025-06-29 05:59:48 -0400   34332 execution.flow     INFO     The node 'search_query_runner' will be executed because the activate condition is met, i.e. '${flow.use_search}' is equal to 'True'.
+2025-06-29 05:59:48 -0400   34332 execution.flow     INFO     Executing node query_interpreter. node run id: 74d1c5c6-f857-459f-b66e-927db14925c4_query_interpreter_0
+2025-06-29 05:59:48 -0400   34332 execution.flow     INFO     Executing node search_query_runner. node run id: 74d1c5c6-f857-459f-b66e-927db14925c4_search_query_runner_0
+2025-06-29 05:59:48 -0400   34332 execution.flow     INFO     [search_query_runner in line 0 (index starts from 0)] stdout> Executing hybrid search for: test
+2025-06-29 05:59:49 -0400   34332 execution.flow     INFO     Node search_query_runner completes.
+2025-06-29 05:59:50 -0400   34332 execution.flow     INFO     Node query_interpreter completes.
+2025-06-29 05:59:50 -0400   34332 execution.flow     INFO     Executing node cosmos_query_runner. node run id: 74d1c5c6-f857-459f-b66e-927db14925c4_cosmos_query_runner_0
+2025-06-29 05:59:50 -0400   34332 execution.flow     INFO     [cosmos_query_runner in line 0 (index starts from 0)] stdout> Executing query: SELECT * FROM c
+2025-06-29 05:59:50 -0400   34332 execution.flow     INFO     Node cosmos_query_runner completes.
+2025-06-29 05:59:50 -0400   34332 execution.flow     INFO     Executing node llm_enhancer. node run id: 74d1c5c6-f857-459f-b66e-927db14925c4_llm_enhancer_0
+2025-06-29 06:00:01 -0400   34332 execution.flow     INFO     Node llm_enhancer completes.

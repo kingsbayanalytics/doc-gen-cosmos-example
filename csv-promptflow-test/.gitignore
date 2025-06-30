@@ -1,0 +1,25 @@
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Data files
+*.csv
+*.jsonl
+
+# IDE
+.vscode/
+.idea/
+
+# Prompt Flow
+.prompt-flow/
+__pycache__/
+.runs/

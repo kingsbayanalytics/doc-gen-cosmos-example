@@ -1,0 +1,69 @@
+name: enhanced-workout-query-flow
+$schema: https://azuremlschemas.azureedge.net/promptflow/latest/Flow.schema.json
+inputs:
+  query:
+    type: string
+    description: Natural language question about workout data
+    default: How many sets of strength exercises did I do last week?
+    is_chat_input: true
+  use_search:
+    type: bool
+    description: Whether to include AI Search results
+    default: true
+    is_chat_input: false
+  search_type:
+    type: string
+    description: Type of search (semantic, vector, hybrid, keyword)
+    default: hybrid
+    is_chat_input: false
+outputs:
+  enhanced_result:
+    type: string
+    description: LLM-enhanced analysis combining SQL and search results
+    reference: ${llm_enhancer.output}
+    is_chat_output: true
+  sql_result:
+    type: string
+    description: Raw SQL query results from Cosmos DB
+    reference: ${cosmos_query_runner.output}
+    is_chat_output: false
+  search_result:
+    type: string
+    description: Raw search results from Azure AI Search
+    reference: ${search_query_runner.output}
+    is_chat_output: false
+nodes:
+- name: query_interpreter
+  type: python
+  source:
+    type: code
+    path: query_interpreter.py
+  inputs:
+    question: ${inputs.query}
+- name: cosmos_query_runner
+  type: python
+  source:
+    type: code
+    path: cosmos_query_runner.py
+  inputs:
+    sql_query: ${query_interpreter.output}
+- name: search_query_runner
+  type: python
+  source:
+    type: code
+    path: search_query_runner.py
+  inputs:
+    question: ${inputs.query}
+    search_type: ${inputs.search_type}
+  activate:
+    when: ${inputs.use_search}
+    is: true
+- name: llm_enhancer
+  type: python
+  source:
+    type: code
+    path: llm_enhancer.py
+  inputs:
+    question: ${inputs.query}
+    sql_results: ${cosmos_query_runner.output}
+    search_results: ${search_query_runner.output}
