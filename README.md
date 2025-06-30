@@ -25,13 +25,19 @@ A comprehensive guide demonstrating how to enhance Microsoft's Document Generati
 
 ## Original Solution Overview
 
+[↑ Table of Contents](#-table-of-contents)
+
 Microsoft's Document Generation Solution Accelerator leverages Azure OpenAI Service and Azure AI Search to identify relevant documents, summarize unstructured information, and generate document templates. It uses sample data from "generic AI-generated promissory notes" and is intended for demonstration purposes.
 
 ## Original Solution Architecture
 
+[↑ Table of Contents](#-table-of-contents)
+
 The original Microsoft solution includes an architecture diagram showing the system's components and integration points between Azure services, focusing on document retrieval and template generation using AI Search.
 
 ## Business Scenario
+
+[↑ Table of Contents](#-table-of-contents)
 
 **Original Microsoft Scope:**
 "Put your data to work by reducing blank page anxiety, speeding up document drafting, improving draft document quality, and reference information quickly - keeping experts in their expertise."
@@ -52,6 +58,8 @@ The original solution aims to help organizations draft document templates like:
 
 ## Enhanced Business Scenario: Fitness Data Analytics
 
+[↑ Table of Contents](#-table-of-contents)
+
 **Our Enhancement Scope:**
 (example for go-by) Transform fitness tracking data into actionable insights and professional documents. Our enhanced system demonstrates how to integrate structured CosmosDB data with AI Search capabilities to create intelligent fitness document generation.
 
@@ -70,6 +78,8 @@ The original solution aims to help organizations draft document templates like:
 The goal of this example is to determine how best to query a CosmosDB and use those query results as part of chat and document generation output.
 
 ## 🤔 Fundamental Question: Do You Even Need PromptFlow?
+
+[↑ Table of Contents](#-table-of-contents)
 
 **Critical First Decision**: *Could you achieve the same results with LangChain, a custom Python script, or other alternatives?*
 
@@ -311,6 +321,8 @@ This approach lets you validate your use case before committing to more complex 
 
 ## Why PromptFlow + AI Search?
 
+[↑ Table of Contents](#-table-of-contents)
+
 ### The Limitation of AI Search Alone
 
 While Azure AI Search provides excellent semantic search capabilities, it has significant limitations when working with structured data:
@@ -476,6 +488,8 @@ This allows you to get AI Search benefits when needed while avoiding overhead fo
 
 ## Enhanced Solution Architecture
 
+[↑ Table of Contents](#-table-of-contents)
+
 ```mermaid
 graph TD
     A[User Request: 'Generate monthly pushup report'] --> B[Document Generation Frontend]
@@ -515,6 +529,8 @@ graph TD
 
 
 ## PromptFlow Deep Dive
+
+[↑ Table of Contents](#-table-of-contents)
 
 ![alt text](image-1.png)
 
