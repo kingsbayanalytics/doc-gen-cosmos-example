@@ -2067,6 +2067,365 @@ class MonitoredPromptFlowClient:
             raise
 ```
 
+### Alternative Migration Paths: Custom Python & LangChain
+
+If you've determined that PromptFlow is overkill for your use case (see [Fundamental Question: Do You Even Need PromptFlow?](#-fundamental-question-do-you-even-need-promptflow)), here are migration paths to simpler alternatives.
+
+#### Migration to Custom Python Implementation
+
+**When to Choose Custom Python:**
+- Single developer or small team
+- Simple, linear workflow (query → process → respond)
+- Want maximum control and minimal dependencies
+- Budget-conscious (saves ~$150/month vs PromptFlow)
+
+**Files You Can Leverage:**
+
+The current PromptFlow implementation contains several reusable Python modules that work independently:
+
+```python
+# Leverage these existing files directly in your custom implementation:
+workout-data-promptflow/
+├── query_interpreter.py     # ✅ SQL generation logic
+├── cosmos_query_runner.py   # ✅ Cosmos DB execution
+├── search_runner.py         # ✅ AI Search queries
+├── schema_discovery.py      # ✅ Database schema analysis
+└── llm_enhancer.py         # ✅ Response enhancement
+```
+
+**Custom Python Migration Steps:**
+
+**Step 1: Create Simple Orchestrator**
+```python
+# create: simple_fitness_query.py
+import os
+from query_interpreter import query_interpreter
+from cosmos_query_runner import cosmos_query_runner
+from search_runner import search_runner
+from llm_enhancer import llm_enhancer
+
+class SimpleFitnessQuery:
+    def __init__(self):
+        # Leverage existing environment variables
+        self.cosmos_uri = os.getenv("COSMOS_URI")
+        self.cosmos_key = os.getenv("COSMOS_KEY")
+        self.openai_key = os.getenv("AZURE_OPENAI_API_KEY")
+        self.search_endpoint = os.getenv("AZURE_SEARCH_ENDPOINT")
+    
+    def query(self, user_question, use_search=True):
+        """Single method replacing entire PromptFlow DAG"""
+        
+        # Step 1: Generate SQL (reuse existing logic)
+        sql_query = query_interpreter(user_question)
+        
+        # Step 2: Execute SQL (reuse existing logic) 
+        sql_results = cosmos_query_runner(sql_query)
+        
+        # Step 3: Optional AI Search (reuse existing logic)
+        search_results = None
+        if use_search:
+            search_results = search_runner(user_question, "hybrid", 5)
+        
+        # Step 4: Enhance response (reuse existing logic)
+        enhanced_response = llm_enhancer(
+            query=user_question,
+            sql_result=sql_results,
+            search_result=search_results
+        )
+        
+        return {
+            "answer": enhanced_response,
+            "sql_query": sql_query,
+            "sql_results": sql_results,
+            "search_results": search_results
+        }
+
+# Usage - replaces entire PromptFlow endpoint
+fitness_query = SimpleFitnessQuery()
+result = fitness_query.query("How many pushups have I done?")
+print(result["answer"])
+```
+
+**Step 2: Environment Variable Reuse**
+```bash
+# Your existing .env variables work unchanged:
+# From workout-data-promptflow/.env
+COSMOS_URI=https://your-cosmos-account.documents.azure.com:443/
+COSMOS_KEY=your_cosmos_key
+AZURE_OPENAI_API_KEY=your_openai_key
+AZURE_OPENAI_ENDPOINT=https://your-openai.openai.azure.com/
+AZURE_SEARCH_ENDPOINT=https://your-search.search.windows.net
+AZURE_SEARCH_ADMIN_KEY=your_search_key
+
+# No additional PromptFlow variables needed!
+```
+
+**Step 3: Replace PromptFlow Integration**
+```python
+# In document-generation-solution-accelerator/src/app.py
+# Replace this:
+response = requests.post(
+    "http://127.0.0.1:8080/score",  # PromptFlow endpoint
+    json={"query": user_question}
+)
+
+# With this:
+from simple_fitness_query import SimpleFitnessQuery
+fitness_query = SimpleFitnessQuery()
+response_data = fitness_query.query(user_question)
+```
+
+**Benefits of Custom Python Migration:**
+- **Reduced Complexity**: 50 lines vs 4-node DAG
+- **Zero Infrastructure**: No Azure ML workspace needed
+- **Direct Debugging**: Standard Python debugging tools
+- **Cost Savings**: ~$150/month reduction
+- **Full Control**: Modify logic without DAG constraints
+
+**Code Changes Required:**
+```python
+# Minimal changes - mostly removing PromptFlow client
+# document-generation-solution-accelerator/src/backend/promptflow_handler.py
+
+class SimpleFitnessHandler:  # Replaces PromptFlowHandler
+    def __init__(self):
+        self.query_engine = SimpleFitnessQuery()
+    
+    def handle_query(self, user_question):
+        return self.query_engine.query(user_question)
+```
+
+#### Migration to LangChain Implementation
+
+**When to Choose LangChain:**
+- Want structured LLM orchestration without Microsoft lock-in
+- Need advanced features (memory, agents, tools)
+- Planning to add more AI capabilities later
+- Prefer open-source frameworks
+
+**Files You Can Leverage:**
+
+Same core logic files, but wrapped in LangChain components:
+
+```python
+# Leverage these files within LangChain chains:
+├── query_interpreter.py     # ✅ Wrap as LangChain tool
+├── cosmos_query_runner.py   # ✅ Wrap as LangChain tool  
+├── search_runner.py         # ✅ Wrap as LangChain tool
+└── schema_discovery.py      # ✅ Use for context enhancement
+```
+
+**LangChain Migration Steps:**
+
+**Step 1: Install LangChain**
+```bash
+pip install langchain langchain-openai langchain-community
+```
+
+**Step 2: Create LangChain Tools**
+```python
+# create: langchain_fitness_tools.py
+from langchain.tools import Tool
+from langchain.schema import Document
+from query_interpreter import query_interpreter
+from cosmos_query_runner import cosmos_query_runner
+from search_runner import search_runner
+import json
+
+def sql_query_tool(user_question: str) -> str:
+    """Tool that converts natural language to SQL and executes it"""
+    sql = query_interpreter(user_question)
+    result = cosmos_query_runner(sql)
+    return f"SQL: {sql}\nResults: {result}"
+
+def search_tool(user_question: str) -> str:
+    """Tool that performs AI Search"""
+    results = search_runner(user_question, "hybrid", 5)
+    return f"Search Results: {results}"
+
+# Define LangChain tools
+fitness_tools = [
+    Tool(
+        name="SQL_Query",
+        func=sql_query_tool,
+        description="Execute SQL queries against workout database. Use for counting, averaging, and structured data questions."
+    ),
+    Tool(
+        name="AI_Search", 
+        func=search_tool,
+        description="Search workout data semantically. Use for finding similar exercises or general queries."
+    )
+]
+```
+
+**Step 3: Create LangChain Agent**
+```python
+# create: langchain_fitness_agent.py
+import os
+from langchain.agents import initialize_agent, AgentType
+from langchain_openai import AzureChatOpenAI
+from langchain_fitness_tools import fitness_tools
+
+class LangChainFitnessAgent:
+    def __init__(self):
+        # Leverage existing environment variables
+        self.llm = AzureChatOpenAI(
+            azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+            api_key=os.getenv("AZURE_OPENAI_API_KEY"),
+            api_version=os.getenv("AZURE_OPENAI_API_VERSION"),
+            azure_deployment=os.getenv("AZURE_OPENAI_CHAT_DEPLOYMENT"),
+            temperature=0.7
+        )
+        
+        # Initialize agent with fitness tools
+        self.agent = initialize_agent(
+            tools=fitness_tools,
+            llm=self.llm,
+            agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+            verbose=True,
+            max_iterations=3
+        )
+    
+    def query(self, user_question: str):
+        """Process fitness questions using LangChain agent"""
+        system_prompt = """You are a fitness data analyst. Use the available tools to:
+        1. For counting/averaging questions, use SQL_Query tool
+        2. For finding exercises or general questions, use AI_Search tool  
+        3. Combine results to provide comprehensive fitness insights
+        
+        Always provide specific numbers and actionable insights."""
+        
+        full_prompt = f"{system_prompt}\n\nUser Question: {user_question}"
+        
+        try:
+            result = self.agent.run(full_prompt)
+            return {
+                "answer": result,
+                "agent_type": "LangChain",
+                "tools_used": "SQL_Query, AI_Search"
+            }
+        except Exception as e:
+            return {"error": str(e), "answer": "Sorry, I couldn't process that question."}
+
+# Usage - replaces PromptFlow
+agent = LangChainFitnessAgent()
+result = agent.query("How many pushups have I done this month?")
+print(result["answer"])
+```
+
+**Step 4: Environment Variable Reuse**
+```bash
+# Exact same environment variables work:
+# From workout-data-promptflow/.env (no changes needed)
+AZURE_OPENAI_ENDPOINT=https://your-openai.openai.azure.com/
+AZURE_OPENAI_API_KEY=your_openai_key
+AZURE_OPENAI_CHAT_DEPLOYMENT=gpt-4o-deployment
+AZURE_OPENAI_API_VERSION=2025-01-01-preview
+COSMOS_URI=https://your-cosmos.documents.azure.com:443/
+COSMOS_KEY=your_cosmos_key
+AZURE_SEARCH_ENDPOINT=https://your-search.search.windows.net
+AZURE_SEARCH_ADMIN_KEY=your_search_key
+
+# LangChain will use these automatically
+```
+
+**Step 5: Advanced LangChain Features**
+```python
+# Optional: Add memory for conversation context
+from langchain.memory import ConversationBufferMemory
+
+class AdvancedFitnessAgent(LangChainFitnessAgent):
+    def __init__(self):
+        super().__init__()
+        
+        # Add conversation memory
+        self.memory = ConversationBufferMemory(
+            memory_key="chat_history",
+            return_messages=True
+        )
+        
+        # Agent with memory
+        self.agent = initialize_agent(
+            tools=fitness_tools,
+            llm=self.llm,
+            agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION,
+            memory=self.memory,
+            verbose=True
+        )
+    
+    def query_with_context(self, user_question: str):
+        """Maintains conversation context across queries"""
+        return self.agent.run(user_question)
+
+# Usage with memory
+agent = AdvancedFitnessAgent()
+agent.query_with_context("How many pushups have I done?")
+agent.query_with_context("What about last month?")  # Remembers context
+```
+
+**Benefits of LangChain Migration:**
+- **Tool Ecosystem**: Rich library of pre-built components
+- **Memory Management**: Built-in conversation history
+- **Agent Capabilities**: Can plan multi-step workflows
+- **Flexibility**: Easy to add new tools and capabilities
+- **Community**: Large open-source community and examples
+
+**Integration with Document Generation:**
+```python
+# In document-generation-solution-accelerator/src/backend/
+# Replace PromptFlow client with LangChain agent
+
+from langchain_fitness_agent import LangChainFitnessAgent
+
+class LangChainFitnessHandler:
+    def __init__(self):
+        self.agent = LangChainFitnessAgent()
+    
+    def handle_query(self, user_question):
+        return self.agent.query(user_question)
+```
+
+**Environment Variable Compatibility:**
+
+Both Custom Python and LangChain approaches reuse your existing environment configuration:
+
+```bash
+# These variables from workout-data-promptflow/.env work unchanged:
+✅ COSMOS_URI                    # Database connection
+✅ COSMOS_KEY                    # Database authentication  
+✅ AZURE_OPENAI_ENDPOINT         # LLM service
+✅ AZURE_OPENAI_API_KEY          # LLM authentication
+✅ AZURE_OPENAI_CHAT_DEPLOYMENT  # Model deployment
+✅ AZURE_SEARCH_ENDPOINT         # Search service
+✅ AZURE_SEARCH_ADMIN_KEY        # Search authentication
+
+# Only PromptFlow-specific variables become unused:
+❌ (No longer needed) Azure ML workspace variables
+❌ (No longer needed) PromptFlow deployment variables
+```
+
+**Migration Decision Matrix:**
+
+| Factor | Custom Python | LangChain | PromptFlow |
+|--------|---------------|-----------|------------|
+| **Complexity** | Lowest (50 lines) | Medium (200 lines) | Highest (4-node DAG) |
+| **Monthly Cost** | ~$5-20 | ~$20-40 | ~$150+ |
+| **Learning Curve** | Minimal | Medium | High |
+| **Flexibility** | High | Very High | Medium |
+| **Enterprise Features** | None | Some | Extensive |
+| **Vendor Lock-in** | None | None | Microsoft |
+| **Development Speed** | Fastest | Fast | Slowest |
+
+**Next Steps After Migration:**
+
+1. **Test existing queries** with your chosen approach
+2. **Update document generation integration** to use new query handler
+3. **Remove PromptFlow dependencies** from requirements.txt
+4. **Update deployment scripts** to remove Azure ML components
+5. **Monitor performance** and cost savings
+
+Both alternatives leverage your existing code investment while reducing complexity and cost.
+
 ## Troubleshooting
 
 ### Common Issues and Solutions
