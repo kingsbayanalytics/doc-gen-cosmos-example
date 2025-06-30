@@ -1,3 +1,0 @@
-## Verification Criteria
-
-{verificationCriteria}

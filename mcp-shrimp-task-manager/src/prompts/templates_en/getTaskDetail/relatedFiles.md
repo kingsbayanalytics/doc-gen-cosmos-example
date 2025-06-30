@@ -1,3 +1,0 @@
-**Related Files:**
-
-{files}
