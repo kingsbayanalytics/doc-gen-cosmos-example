@@ -20,6 +20,7 @@ A comprehensive guide demonstrating how to enhance Microsoft's Document Generati
 - [Deployment Options](#deployment-options)
 - [Migration Guide](#migration-guide)
 - [Troubleshooting](#troubleshooting)
+- [Development Best Practices](#development-best-practices)
 - [Performance Considerations](#performance-considerations)
 
 ## Original Solution Overview
@@ -2520,6 +2521,33 @@ def generate_section():
         return jsonify({"error": str(e)}), 500
 ```
 
+**Issue: "Async/await expression errors"**
+```python
+# Problem: Using await on synchronous methods
+# ❌ Incorrect: result = await synchronous_function()
+# ✅ Correct: result = synchronous_function()
+
+# Common async/await errors and fixes:
+
+# Error: 'await' expression in async comprehension
+async def process_sections(sections):
+    # ❌ Wrong
+    results = [await process_section(s) for s in sections]
+    
+    # ✅ Correct
+    tasks = [process_section(s) for s in sections]
+    results = await asyncio.gather(*tasks)
+
+# Error: Missing await on async client calls
+async def call_openai():
+    # ❌ Wrong: returns coroutine object
+    response = openai_client.chat.completions.create(...)
+    
+    # ✅ Correct: awaits the response
+    response = await openai_client.chat.completions.create(...)
+    return response.choices[0].message.content
+```
+
 **Issue: "Frontend state management errors"**
 ```typescript
 // Problem: Navigation timing and state persistence
@@ -2709,6 +2737,171 @@ const DebugComponent = () => {
   
   return null;
 };
+```
+
+## Development Best Practices
+
+### Lessons Learned from Implementation
+
+#### Async/Await Patterns
+**Key Insight**: Be explicit about synchronous vs asynchronous methods
+
+```python
+# Pattern 1: Synchronous wrapper for PromptFlow
+class PromptFlowHandler:
+    def call_promptflow(self, query):  # Synchronous method
+        response = requests.post(self.endpoint, json=query, timeout=120)
+        return response.json()
+    
+    async def async_call_promptflow(self, query):  # Async wrapper if needed
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(None, self.call_promptflow, query)
+
+# Pattern 2: Proper async client usage
+async def enhanced_section_generation():
+    # ✅ Correct: await async methods
+    openai_response = await openai_client.chat.completions.create(...)
+    
+    # ✅ Correct: don't await synchronous methods
+    promptflow_data = promptflow_handler.call_promptflow(query)
+```
+
+#### Frontend State Management
+**Key Insight**: Navigation timing affects state persistence
+
+```typescript
+// Pattern: State-safe navigation with verification
+const useStateSafeNavigation = () => {
+  const navigate = useNavigate();
+  
+  const safeNavigate = useCallback((path: string, state?: any) => {
+    // Save state before navigation
+    if (state) {
+      sessionStorage.setItem('navigationState', JSON.stringify(state));
+    }
+    
+    // Add timing delay for state persistence
+    setTimeout(() => navigate(path), 100);
+  }, [navigate]);
+  
+  return safeNavigate;
+};
+```
+
+#### Response Format Standardization
+**Key Insight**: Frontend expects consistent response structures
+
+```python
+# Pattern: Standardized response wrapper
+def create_chat_completion_response(content, response_type="template"):
+    """Standardize all responses to ChatCompletion format"""
+    return {
+        "id": f"{response_type}-{uuid.uuid4()}",
+        "object": "chat.completion",
+        "created": int(time.time()),
+        "model": "enhanced-promptflow",
+        "choices": [{
+            "messages": [{
+                "content": json.dumps(content) if isinstance(content, dict) else content,
+                "role": "assistant"
+            }]
+        }],
+        "history_metadata": {},
+        "apim-request-id": str(uuid.uuid4())
+    }
+```
+
+#### Error Handling Strategy
+**Key Insight**: Graceful degradation improves user experience
+
+```python
+# Pattern: Fallback-enabled service calls
+async def robust_section_generation(section_data):
+    try:
+        # Primary: PromptFlow + Azure OpenAI
+        promptflow_result = promptflow_handler.call_promptflow(section_query)
+        enhanced_content = await openai_client.chat.completions.create(...)
+        return enhanced_content.choices[0].message.content
+        
+    except PromptFlowError:
+        # Fallback: Azure OpenAI only
+        logger.warning("PromptFlow unavailable, using fallback")
+        fallback_content = await openai_client.chat.completions.create(...)
+        return fallback_content.choices[0].message.content
+        
+    except Exception as e:
+        # Last resort: Static response
+        logger.error(f"All generation methods failed: {e}")
+        return f"Unable to generate content for {section_data['title']}"
+```
+
+#### Development Debugging Methodology
+**Key Insight**: Systematic debugging saves time
+
+```python
+# Pattern: Comprehensive diagnostic logging
+import logging
+
+def setup_debug_logging():
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler('integration_debug.log'),
+            logging.StreamHandler()
+        ]
+    )
+
+# Usage in integration points
+logger = logging.getLogger(__name__)
+
+def debug_api_call(endpoint, payload, response):
+    logger.debug(f"API Call: {endpoint}")
+    logger.debug(f"Payload: {json.dumps(payload, indent=2)}")
+    logger.debug(f"Response Status: {response.status_code}")
+    logger.debug(f"Response Content: {response.text[:500]}...")
+```
+
+### Integration Testing Strategy
+
+#### Component-Level Testing
+```python
+# Test individual components before integration
+def test_promptflow_connection():
+    """Test PromptFlow endpoint connectivity"""
+    response = requests.post(
+        "http://127.0.0.1:8080/score",
+        json={"query": "test", "use_search": False},
+        timeout=30
+    )
+    assert response.status_code == 200
+    assert "enhanced_result" in response.json()
+
+def test_openai_integration():
+    """Test Azure OpenAI connectivity"""
+    client = AsyncAzureOpenAI(...)
+    response = await client.chat.completions.create(
+        model="gpt-4o",
+        messages=[{"role": "user", "content": "test"}]
+    )
+    assert response.choices[0].message.content
+```
+
+#### End-to-End Workflow Testing
+```bash
+# Systematic testing approach
+# 1. Start all services
+cd workout-data-promptflow && pf flow serve --source . --port 8080 &
+cd document-generation-solution-accelerator/src && python app.py &
+
+# 2. Test individual endpoints
+curl -X POST http://localhost:50505/history/generate \
+  -H "Content-Type: application/json" \
+  -d '{"message": "monthly pushup summary", "chat_type": "template"}'
+
+# 3. Test complete workflow
+# Navigate to http://localhost:5174/#/generate
+# Generate template → Generate sections → Export document
 ```
 
 ## Performance Considerations
