@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document Generation Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        .container { background: #f5f5f5; padding: 20px; border-radius: 8px; }
+        textarea { width: 100%; height: 100px; margin: 10px 0; }
+        button { background: #007cba; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #005a87; }
+        .result { background: white; padding: 15px; margin: 15px 0; border-radius: 4px; border-left: 4px solid #007cba; }
+        .error { border-left-color: #dc3545; }
+        .status { margin: 10px 0; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏋️ Workout Data Document Generator</h1>
+        <p>Test your PromptFlow integration for fitness document generation</p>
+        
+        <div>
+            <label for="query">Ask about your workout data:</label>
+            <textarea id="query" placeholder="e.g., How many workouts did I do this week?">How many workouts did I do this week?</textarea>
+        </div>
+        
+        <div>
+            <label>
+                <input type="checkbox" id="useSearch" checked> Use semantic search
+            </label>
+        </div>
+        
+        <div>
+            <label for="searchType">Search type:</label>
+            <select id="searchType">
+                <option value="hybrid">Hybrid (SQL + Vector)</option>
+                <option value="semantic">Semantic only</option>
+                <option value="vector">Vector only</option>
+            </select>
+        </div>
+        
+        <button onclick="queryWorkoutData()">Generate Response</button>
+        
+        <div id="status" class="status"></div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        async function queryWorkoutData() {
+            const query = document.getElementById('query').value;
+            const useSearch = document.getElementById('useSearch').checked;
+            const searchType = document.getElementById('searchType').value;
+            const statusDiv = document.getElementById('status');
+            const resultDiv = document.getElementById('result');
+            
+            statusDiv.textContent = 'Querying PromptFlow...';
+            resultDiv.innerHTML = '';
+            
+            try {
+                const response = await fetch('http://localhost:5001/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        messages: [
+                            {
+                                role: 'user',
+                                content: query
+                            }
+                        ],
+                        promptflow_request: {
+                            query: query,
+                            use_search: useSearch,
+                            search_type: searchType
+                        }
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                statusDiv.textContent = 'Success!';
+                resultDiv.innerHTML = `<div class="result">${JSON.stringify(data, null, 2)}</div>`;
+                
+            } catch (error) {
+                statusDiv.textContent = 'Error occurred';
+                resultDiv.innerHTML = `<div class="result error">Error: ${error.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+
+> frontend@0.0.0 dev
+> vite
+
+
+  VITE v6.3.5  ready in 136 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+3:52:03 AM [vite] http proxy error: /history/ensure
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+3:52:03 AM [vite] http proxy error: /frontend_settings
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+3:52:03 AM [vite] http proxy error: /history/ensure
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+3:52:03 AM [vite] http proxy error: /frontend_settings
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+3:52:19 AM [vite] http proxy error: /conversation
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+11:26:49 PM [vite] vite.config.ts changed, restarting server...
+11:26:49 PM [vite] server restarted.

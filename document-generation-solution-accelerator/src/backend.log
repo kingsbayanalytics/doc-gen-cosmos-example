@@ -1,0 +1,9 @@
+/opt/anaconda3/envs/promptflow-sql/lib/python3.10/site-packages/pydantic_settings/main.py:188: UserWarning: A custom validator is returning a value other than `self`.
+Returning anything other than `self` from a top level model validator isn't supported when validating via `__init__`.
+See the `model_validator` docs (https://docs.pydantic.dev/latest/concepts/validators/#model-validators) for more details.
+  super().__init__(
+/Users/mikewarren/promptflow-sql/document-generation-solution-accelerator/src/backend/settings.py:229: UserWarning: A custom validator is returning a value other than `self`.
+Returning anything other than `self` from a top level model validator isn't supported when validating via `__init__`.
+See the `model_validator` docs (https://docs.pydantic.dev/latest/concepts/validators/#model-validators) for more details.
+  super().__init__(**data)
+WARNING:root:No Application Insights Instrumentation Key found. Skipping configuration

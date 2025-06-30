@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Template Parsing</title>
+</head>
+<body>
+    <h1>Template Parsing Debug</h1>
+    <div id="output"></div>
+
+    <script>
+        // Copy the exact content from backend logs
+        const templateContent = '```json\n{\n  "template": [\n    {\n      "section_title": "Push-Up Performance Summary",\n      "section_description": "Summarize the overall push-up performance for the month, including total push-ups completed, average daily push-ups, personal best in a single session, and an overview of active versus rest days."\n    },\n    {\n      "section_title": "Weekly Breakdown",\n      "section_description": "Provide a table with a weekly breakdown of push-up statistics. Include total push-ups, average push-ups per day, and the best day for each week."\n    },\n    {\n      "section_title": "Key Insights",\n      "section_description": "Analyze trends and patterns in push-up performance. Highlight progress over time, consistency patterns, and changes in intensity or volume. Identify any personal bests or notable achievements."\n    },\n    {\n      "section_title": "Recommendations",\n      "section_description": "Provide actionable insights to improve push-up performance. Include suggestions for setting goals, improving consistency, and incorporating variation into push-up routines to target different muscle groups."\n    },\n    {\n      "section_title": "Motivational Highlights",\n      "section_description": "Celebrate the user\'s achievements for the month. Highlight significant milestones, personal records, and consistency metrics to encourage continued progress."\n    }\n  ]\n}\n```';
+
+        // Test the parsing functions
+        function cleanJSON(jsonString) {
+            try {
+                let lines = jsonString.split('\n');
+                let cleanString = '';
+                lines.forEach((line) => {
+                    if (!line.includes('json') && !line.includes('```')) {
+                        cleanString += line.trim();
+                    }
+                });
+                return cleanString;
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function generateTemplateSections(jsonString) {
+            console.log('Input jsonString:', jsonString);
+            let jsonResponse;
+            try {
+                let cleanString = cleanJSON(jsonString);
+                console.log('Cleaned string:', cleanString);
+                jsonResponse = JSON.parse(cleanString);
+                console.log('Parsed JSON:', jsonResponse);
+            } catch (e) {
+                console.error('Parse error:', e);
+                return 'JSON Parse Error';
+            }
+
+            if (!Array.isArray(jsonResponse.template)) {
+                console.error('Template is not array:', jsonResponse.template);
+                return 'JSON Structure Error';
+            }
+
+            let sections = 'The proposal will include the following sections:\n\n';
+            jsonResponse.template.forEach((row) => {
+                sections += `${row.section_title}\n\n`;
+            });
+            sections += 'Does this look good? If so, you can **generate the document** now.';
+            return sections.trim();
+        }
+
+        // Test the function
+        const result = generateTemplateSections(templateContent);
+        document.getElementById('output').innerHTML = '<pre>' + result + '</pre>';
+        console.log('Final result:', result);
+    </script>
+</body>
+</html>

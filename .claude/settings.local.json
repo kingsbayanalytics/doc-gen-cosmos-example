@@ -44,7 +44,10 @@
       "Bash(true)",
       "Bash(pf service show:*)",
       "Bash(pf service:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(git submodule:*)",
+      "Bash(git remote add:*)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }
