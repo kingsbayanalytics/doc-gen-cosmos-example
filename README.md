@@ -684,8 +684,8 @@ enhanced_analysis = llm_enhancer({
 
 ```bash
 # Clone the repository
-git clone https://github.com/kingsbayanalytics/promptflow-sql.git
-cd promptflow-sql
+git clone https://github.com/kingsbayanalytics/doc-gen-cosmos-example.git
+cd doc-gen-cosmos-example
 
 # Create virtual environment
 conda create -n promptflow-docgen python=3.10 -y

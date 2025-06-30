@@ -237,7 +237,7 @@ The PromptFlow Document Generation integration is now **fully operational**:
 After repository optimization, the structure is now:
 
 ```
-promptflow-sql/
+doc-gen-cosmos-example/
 ├── docs/                                          # 📁 All documentation
 │   ├── DOCUMENT_GENERATION_PLAN.md
 │   ├── DOCUMENT_GENERATION_SECTION_ANALYSIS.md
