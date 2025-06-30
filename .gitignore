@@ -39,6 +39,9 @@ ENV/
 *.swo
 .claude/
 
+# Project-specific
+CLAUDE.md
+
 # OS
 .DS_Store
 Thumbs.db
