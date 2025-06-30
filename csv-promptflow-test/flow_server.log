@@ -310,3 +310,21 @@ ActivityId: e6e06b43-3a28-4b18-ba68-084fb676d3c7, Windows/10.0.20348 cosmos-nets
 [2025-06-29 22:23:30 -0400][pfserving-app][INFO] - Flow does not enable streaming response.
 [2025-06-29 22:23:30 -0400][pfserving-app][INFO] - Finish monitoring request, request_id: None, client_request_id: None.
 127.0.0.1 - - [29/Jun/2025 22:23:30] "POST /score HTTP/1.1" 200 -
+[2025-06-30 00:09:56 -0400][pfserving-app][ERROR] - Promptflow serving app error: {'message': 'Failed to render jinja template. Please modify your prompt to fix the issue.', 'messageFormat': '', 'messageParameters': {}, 'referenceCode': 'Unknown', 'code': 'UserError', 'innerError': None}
+[2025-06-30 00:09:56 -0400][pfserving-app][ERROR] - Promptflow serving error traceback: Traceback (most recent call last):
+  File "/opt/anaconda3/envs/promptflow-sql/lib/python3.10/site-packages/promptflow/core/_serving/v1/blueprint/static_web_blueprint.py", line 27, in home
+    use_sandbox_env = os.environ.get("PF_USE_SANDBOX_FOR_JINJA", "true")
+NameError: name 'os' is not defined
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/promptflow-sql/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/opt/anaconda3/envs/promptflow-sql/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/opt/anaconda3/envs/promptflow-sql/lib/python3.10/site-packages/promptflow/core/_serving/v1/blueprint/static_web_blueprint.py", line 38, in home
+    raise UserErrorException(message=error_message) from e
+promptflow.exceptions.UserErrorException: Failed to render jinja template. Please modify your prompt to fix the issue.
+
+127.0.0.1 - - [30/Jun/2025 00:09:56] "GET / HTTP/1.1" 400 -

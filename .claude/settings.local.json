@@ -43,7 +43,8 @@
       "mcp__sequential-thinking__sequentialthinking",
       "Bash(true)",
       "Bash(pf service show:*)",
-      "Bash(pf service:*)"
+      "Bash(pf service:*)",
+      "Bash(npm run dev:*)"
     ],
     "deny": []
   }
