@@ -1,0 +1,1 @@
+Initialize project standards, call this tool when the user requests to generate or initialize a project standards document, also call this tool if the user requests to change or update project standards

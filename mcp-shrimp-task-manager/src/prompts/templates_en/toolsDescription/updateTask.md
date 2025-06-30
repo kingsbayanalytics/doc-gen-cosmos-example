@@ -1,0 +1,1 @@
+Update task content, including name, description and notes, dependent tasks, related files, implementation guide, and verification criteria, completed tasks only allow updating summary and related files

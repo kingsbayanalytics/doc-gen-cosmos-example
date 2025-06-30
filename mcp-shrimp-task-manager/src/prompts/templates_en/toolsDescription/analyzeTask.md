@@ -1,0 +1,1 @@
+Deeply analyze task requirements and systematically examine the codebase, assess technical feasibility and potential risks, if code needs to be provided use pseudocode format and only provide high-level logic flow and key steps avoiding complete code

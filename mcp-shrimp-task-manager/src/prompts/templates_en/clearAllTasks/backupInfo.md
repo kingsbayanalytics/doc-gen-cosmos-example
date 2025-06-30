@@ -1,0 +1,1 @@
+Backup automatically created: `{{backupFile}}`

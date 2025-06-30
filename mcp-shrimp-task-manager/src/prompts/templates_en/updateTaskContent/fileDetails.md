@@ -1,0 +1,1 @@
+- **Related Files:** {fileType} ({fileCount}): {filesList}

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <circle cx="32" cy="32" r="30" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+  <path d="M22 20H42C43.1046 20 44 20.8954 44 22V42C44 43.1046 43.1046 44 42 44H22C20.8954 44 20 43.1046 20 42V22C20 20.8954 20.8954 20 22 20Z" stroke="#3B82F6" stroke-width="2"/>
+  <path d="M24 25H40" stroke="#3B82F6" stroke-width="2" stroke-linecap="round"/>
+  <path d="M24 30H36" stroke="#3B82F6" stroke-width="2" stroke-linecap="round"/>
+  <path d="M24 35H32" stroke="#3B82F6" stroke-width="2" stroke-linecap="round"/>
+  <path d="M24 40H28" stroke="#3B82F6" stroke-width="2" stroke-linecap="round"/>
+  <path d="M40 40C40 38.8954 40.8954 38 42 38H46C47.1046 38 48 38.8954 48 40V40C48 41.1046 47.1046 42 46 42H42C40.8954 42 40 41.1046 40 40V40Z" fill="#DBEAFE" stroke="#3B82F6" stroke-width="2"/>
+  <path d="M16 24C16 22.8954 16.8954 22 18 22H22C23.1046 22 24 22.8954 24 24V24C24 25.1046 23.1046 26 22 26H18C16.8954 26 16 25.1046 16 24V24Z" fill="#DBEAFE" stroke="#3B82F6" stroke-width="2"/>
+  <path d="M48 32L45 35L48 38" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M16 32L19 29L16 26" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg> 
